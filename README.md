@@ -18,6 +18,7 @@ The app is intentionally read-only and does not use private keys.
 - RPC: `https://testnet.battlechain.com`
 - Chain ID: `627`
 - Default registry: `0xdD029a6374095EEb4c47a2364Ce1D0f47f007350`
+- Explorer base: `https://explorer.testnet.battlechain.com`
 
 ## Requirements
 
