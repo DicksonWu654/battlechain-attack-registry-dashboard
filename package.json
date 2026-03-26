@@ -1,0 +1,39 @@
+{
+  "name": "battlechain-attack-registry-dashboard",
+  "private": false,
+  "version": "0.1.0",
+  "description": "A live dashboard for BattleChain attackable agreements.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "start": "vite",
+    "typecheck": "tsc -p tsconfig.json",
+    "preview": "vite preview"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DicksonWu654/battlechain-attack-registry-dashboard.git"
+  },
+  "keywords": [
+    "battlechain",
+    "security",
+    "web3",
+    "ethereum",
+    "dashboard",
+    "ethers"
+  ],
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "viem": "^2.47.6"
+  },
+  "devDependencies": {
+    "vite": "^5.4.21",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.8.3",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
+  }
+}
