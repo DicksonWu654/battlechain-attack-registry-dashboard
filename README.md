@@ -77,7 +77,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
-## Screenshot
-
-![Dashboard preview](dashboard.png)
