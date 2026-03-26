@@ -1,0 +1,400 @@
+@font-face {
+  font-family: 'Geist Sans';
+  src: url('https://docs.battlechain.com/_next/static/media/GeistVF-s.p.4c3c0b96.woff') format('woff');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://docs.battlechain.com/_next/static/media/GeistMonoVF-s.p.2cee7d16.woff') format('woff');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --bc-bg: #0e1119;
+  --bc-bg-alt: #161b26;
+  --bc-bg-soft: #1d2432;
+  --bc-border: #333741;
+  --bc-accent: #004dff;
+  --bc-accent-strong: #003ed1;
+  --bc-text: #f8fafc;
+  --bc-muted: #cfd4dc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Geist Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color: var(--bc-text);
+  background: radial-gradient(circle at top right, #172033 0%, #0e1119 45%, #090c14 100%);
+}
+
+.shell {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+}
+
+.shell-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, #12203a 0%, transparent 45%),
+    radial-gradient(600px 380px at 90% 0%, #15335f 0%, transparent 55%);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.shell-content {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.topbar {
+  border: 1px solid color-mix(in oklab, var(--bc-border) 85%, transparent);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--bc-bg-soft) 75%, transparent);
+  padding: 1.25rem;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.topbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 5%, rgb(0 77 255 / 12%) 45%, transparent 80%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.topbar > * {
+  position: relative;
+}
+
+h1 {
+  margin: 0.25rem 0 0.25rem;
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--bc-accent);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.subtext {
+  margin: 0;
+  color: var(--bc-muted);
+  font-size: 0.95rem;
+  max-width: 72ch;
+}
+
+.refresh {
+  border: 1px solid #004dff55;
+  background: linear-gradient(160deg, #0b1220, #101a2a);
+  color: white;
+  border-radius: 999px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 600;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.refresh:hover:not(:disabled) {
+  transform: translateY(-1px);
+  border-color: #2d6cff;
+}
+
+.refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.metric-card {
+  border-radius: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--bc-border);
+  background: linear-gradient(135deg, rgb(22 27 38 / 84%), rgb(29 36 50 / 84%));
+}
+
+.metric-kicker {
+  margin: 0;
+  color: var(--bc-muted);
+  font-size: 0.8rem;
+  font-family: 'Geist Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.metric-value {
+  margin: 0.45rem 0 0;
+  font-size: 1.8rem;
+  font-weight: 650;
+}
+
+.metric-small {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.grid-cards {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.contract-card {
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: linear-gradient(145deg, #111a2a, #1a2130);
+  border-left: 3px solid;
+  box-shadow:
+    0 18px 30px rgb(0 0 0 / 20%),
+    inset 0 0 0 1px rgb(255 255 255 / 1%);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.protocol {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.agreement-address {
+  margin: 0.3rem 0 0;
+  color: var(--bc-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.address-row {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-family: 'Geist Mono', monospace;
+  color: var(--bc-text);
+}
+
+.address-row > span:first-child {
+  word-break: break-all;
+}
+
+.address-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+.address-action {
+  border: 1px solid #2a5eff55;
+  border-radius: 999px;
+  background: rgb(0 77 255 / 12%);
+  color: #9abfff;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.73rem;
+  font-family: 'Geist Mono', monospace;
+  text-decoration: none;
+}
+
+.address-action:hover {
+  background: rgb(0 77 255 / 22%);
+}
+
+.pill {
+  border-radius: 999px;
+  padding: 0.45rem 0.75rem;
+  font-size: 0.72rem;
+  font-family: 'Geist Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  background: rgb(31 41 55 / 35%);
+  color: white;
+}
+
+.card-meta {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.35rem;
+  color: var(--bc-muted);
+}
+
+.meta-label {
+  color: white;
+  font-family: 'Geist Mono', monospace;
+  margin-right: 0.25rem;
+}
+
+.scope-list {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.28rem;
+}
+
+.scope-item {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  color: var(--bc-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.88rem;
+}
+
+.state-message,
+.loading-state,
+.error-banner {
+  border-radius: 0.8rem;
+  border: 1px dashed var(--bc-border);
+  padding: 0.95rem;
+}
+
+.loading-state,
+.state-message {
+  background: rgb(25 34 53 / 50%);
+}
+
+.error-banner {
+  border-color: rgb(220 38 38 / 55%);
+  color: #fdb1a0;
+  background: rgb(127 29 29 / 40%);
+}
+
+.state-warning {
+  border-left-color: #f59e0b;
+}
+
+.state-warning .pill {
+  background: rgb(245 158 11 / 20%);
+  color: #fcd34d;
+}
+
+.state-danger {
+  border-left-color: #004dff;
+}
+
+.state-danger .pill {
+  background: rgb(0 77 255 / 30%);
+  color: #7eb4ff;
+}
+
+.state-info {
+  border-left-color: #60a5fa;
+}
+
+.state-info .pill {
+  background: rgb(96 165 250 / 20%);
+  color: #93c5fd;
+}
+
+.state-success {
+  border-left-color: #22c55e;
+}
+
+.state-success .pill {
+  background: rgb(34 197 94 / 20%);
+  color: #86efac;
+}
+
+.state-neutral {
+  border-left-color: #9ca3af;
+}
+
+.state-neutral .pill {
+  background: rgb(156 163 175 / 20%);
+  color: #d1d5db;
+}
+
+.reveal {
+  animation: card-reveal 470ms cubic-bezier(0.17, 0.89, 0.32, 1) both;
+}
+
+.reveal-1 {
+  animation-delay: 30ms;
+}
+
+.reveal-2 {
+  animation-delay: 70ms;
+}
+
+.reveal-3 {
+  animation-delay: 110ms;
+}
+
+.reveal-4 {
+  animation-delay: 150ms;
+}
+
+.reveal-5 {
+  animation-delay: 190ms;
+}
+
+.reveal-6 {
+  animation-delay: 230ms;
+}
+
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .metrics {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
