@@ -16,6 +16,10 @@
     "type": "git",
     "url": "https://github.com/DicksonWu654/battlechain-attack-registry-dashboard.git"
   },
+  "homepage": "https://github.com/DicksonWu654/battlechain-attack-registry-dashboard",
+  "bugs": {
+    "url": "https://github.com/DicksonWu654/battlechain-attack-registry-dashboard/issues"
+  },
   "keywords": [
     "battlechain",
     "security",
