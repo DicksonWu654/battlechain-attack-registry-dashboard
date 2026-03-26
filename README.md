@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-Then open the printed local URL (defaults to `http://127.0.0.1:4173`).
+Then open the printed local URL (defaults to `http://localhost:5173` unless overridden).
 
 ### Production build
 
