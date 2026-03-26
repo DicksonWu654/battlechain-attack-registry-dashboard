@@ -225,6 +225,15 @@ h1 {
   align-items: center;
   gap: 0.4rem;
   margin-left: auto;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  min-width: 180px;
+}
+
+.address-text {
+  word-break: break-all;
+  color: var(--bc-text);
+  min-width: 0;
 }
 
 .address-action {
@@ -232,14 +241,48 @@ h1 {
   border-radius: 999px;
   background: rgb(0 77 255 / 12%);
   color: #9abfff;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.73rem;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.74rem;
+  line-height: 1;
   font-family: 'Geist Mono', monospace;
   text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease,
+    color 180ms ease;
+}
+
+.address-action-icon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  opacity: 0.95;
 }
 
 .address-action:hover {
   background: rgb(0 77 255 / 22%);
+}
+
+.address-action:hover,
+.address-action:focus-visible {
+  border-color: #5b8bff;
+  transform: translateY(-1px);
+}
+
+.address-action:focus-visible {
+  outline: 2px solid #93b9ff;
+  outline-offset: 2px;
+}
+
+.address-action-copied {
+  color: #a3ffce;
+  border-color: #2fc27d;
+  background: rgb(47 194 125 / 16%);
 }
 
 .pill {
@@ -282,6 +325,16 @@ h1 {
   color: var(--bc-muted);
   font-family: 'Geist Mono', monospace;
   font-size: 0.88rem;
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 2%);
+  border: 1px solid rgb(255 255 255 / 6%);
+  padding: 0.55rem 0.68rem;
+}
+
+.scope-item span:first-child {
+  word-break: break-all;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .state-message,
