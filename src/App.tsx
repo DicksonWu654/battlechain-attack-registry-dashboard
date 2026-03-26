@@ -14,7 +14,8 @@ import {
 
 const RPC_URL = 'https://testnet.battlechain.com';
 const ATTACK_REGISTRY: Address = '0xdD029a6374095EEb4c47a2364Ce1D0f47f007350';
-const EXPLORER_BASE = 'https://explorer.battlechain.com';
+const CHAIN_ID = 627;
+const EXPLORER_BASE = 'https://explorer.testnet.battlechain.com';
 
 const registryAbi = parseAbi([
   'function getAgreementState(address agreementAddress) view returns (uint8)',
@@ -88,6 +89,55 @@ const toShortAddress = (addr: Address) => `${addr.slice(0, 8)}...${addr.slice(-6
 
 const formatTime = (time: Date | null) =>
   time ? new Intl.DateTimeFormat('en-CA', { timeZone: 'UTC', timeStyle: 'medium', dateStyle: 'short' }).format(time) : '—';
+
+const CopyIcon = () => (
+  <svg
+    aria-hidden="true"
+    className="address-action-icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M8 9.75A2.75 2.75 0 0 1 10.75 7h5a2.75 2.75 0 0 1 2.75 2.75v5A2.75 2.75 0 0 1 15.75 17H14V15.5h1.75a1.25 1.25 0 0 0 1.25-1.25v-5A1.25 1.25 0 0 0 15.75 8h-5A1.25 1.25 0 0 0 9.5 9.25V11H8v-.25Z"
+      fill="currentColor"
+    />
+    <path
+      d="M6.75 17h-.5a2.25 2.25 0 0 1-2.25-2.25v-7.5a2.25 2.25 0 0 1 2.25-2.25h.5v1.5h-.5a.75.75 0 0 0-.75.75v7.5c0 .414.336.75.75.75h.5V17Zm8.25 1.5H8.25A2.25 2.25 0 0 1 6 16.25V8.75A2.25 2.25 0 0 1 8.25 6.5h6.5A2.25 2.25 0 0 1 17 8.75v7.5a2.25 2.25 0 0 1-2.25 2.25h-4.5Zm1-6.25h-6.5a.75.75 0 0 0-.75.75v4.25h6.5a.75.75 0 0 0 .75-.75v-4.5h-.5a.75.75 0 0 1-.75-.75Zm-2.75 1h.75a.5.5 0 0 1 .5.5v3.5a.5.5 0 0 1-.5.5h-.75a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+const ChainIcon = () => (
+  <svg
+    aria-hidden="true"
+    className="address-action-icon"
+    fill="none"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.75 13A2.25 2.25 0 1 1 12 15.25 2.248 2.248 0 0 1 9.75 13Zm-3.25 0a3.75 3.75 0 1 0 3.75-3.75 3.75 3.75 0 0 0-3.75 3.75Zm3.5 5.5a3.75 3.75 0 1 0 3.75-3.75 3.75 3.75 0 0 0-3.75 3.75Zm4.5 0a2.25 2.25 0 1 1 2.25 2.25A2.25 2.25 0 0 1 14 18.5Z"
+      fill="currentColor"
+      fillOpacity="0.95"
+    />
+    <path
+      d="M14.75 8.5H14a3.75 3.75 0 1 0-3.75 3.75h.75m3.25-3.75H15a.75.75 0 0 1 .75.75V10"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+    />
+    <path
+      d="M9.25 15.5H10A3.75 3.75 0 1 0 13.75 11.75H13"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
 
 export function App() {
   const [state, setState] = useState<UiState>({
@@ -241,6 +291,21 @@ export function App() {
   };
 
   const getExplorerLink = (address: Address) => `${EXPLORER_BASE}/address/${address}`;
+  const addressActions = (address: Address, label = 'Address') => {
+    const isCopied = copiedAddress === address;
+    return (
+      <span className="address-actions">
+        <button className={`address-action ${isCopied ? 'address-action-copied' : ''}`} onClick={() => copyAddress(address)} type="button">
+          <CopyIcon />
+          {isCopied ? 'Copied' : `Copy ${label}`}
+        </button>
+        <a className="address-action" href={getExplorerLink(address)} rel="noreferrer" target="_blank">
+          <ChainIcon />
+          Explorer
+        </a>
+      </span>
+    );
+  };
 
   return (
     <main className="shell">
@@ -251,7 +316,7 @@ export function App() {
             <p className="eyebrow">BattleChain Dashboard</p>
             <h1>Attack Registry</h1>
             <p className="subtext">
-              Tracking currently attackable agreements from `0xdD029a...f007350` on testnet (`chainId 627`).
+              Tracking agreement states from {ATTACK_REGISTRY} on BattleChain testnet ({`chainId ${CHAIN_ID}`}) and linked scope contracts.
             </p>
           </div>
           <button className="refresh" onClick={refresh} disabled={state.loading || isPending}>
@@ -289,26 +354,12 @@ export function App() {
                   <div className="card-head">
                     <div>
                       <p className="protocol">{item.protocolName}</p>
-                      <p className="agreement-address">Agreement {toShortAddress(item.agreementAddress)}</p>
+                      <p className="agreement-address">
+                        <span>Agreement</span> {toShortAddress(item.agreementAddress)}
+                      </p>
                       <div className="address-row">
-                        <span>{item.agreementAddress}</span>
-                        <span className="address-actions">
-                          <button
-                            className="address-action"
-                            onClick={() => copyAddress(item.agreementAddress)}
-                            type="button"
-                          >
-                            {copiedAddress === item.agreementAddress ? 'Copied' : 'Copy'}
-                          </button>
-                          <a
-                            className="address-action"
-                            href={getExplorerLink(item.agreementAddress)}
-                            rel="noreferrer"
-                            target="_blank"
-                          >
-                            Explorer
-                          </a>
-                        </span>
+                        <span className="address-text">{item.agreementAddress}</span>
+                        {addressActions(item.agreementAddress, 'agreement')}
                       </div>
                     </div>
                     <span className={`pill ${item.stateTone}`}>{item.stateLabel}</span>
@@ -329,23 +380,7 @@ export function App() {
                       item.scopeAddresses.map((scope) => (
                         <div className="scope-item" key={scope}>
                           <span>{scope}</span>
-                          <span className="address-actions">
-                            <button
-                              className="address-action"
-                              onClick={() => copyAddress(scope)}
-                              type="button"
-                            >
-                              {copiedAddress === scope ? 'Copied' : 'Copy'}
-                            </button>
-                            <a
-                              className="address-action"
-                              href={getExplorerLink(scope)}
-                              rel="noreferrer"
-                              target="_blank"
-                            >
-                              Explorer
-                            </a>
-                          </span>
+                          {addressActions(scope, 'scope')}
                         </div>
                       ))
                     )}
