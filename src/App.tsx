@@ -63,6 +63,14 @@ const client = createPublicClient({
   transport: http(RPC_URL),
 });
 
+type AgreementStateLog = {
+  args: {
+    agreementAddress: Address;
+    state: Hex | bigint;
+  };
+  blockNumber?: bigint;
+};
+
 const fromHexNumber = (value: unknown): number => {
   if (typeof value === 'bigint') {
     return Number(value);
@@ -99,12 +107,12 @@ export function App() {
   const load = async () => {
     try {
       const latestBlock = await client.getBlockNumber();
-      const stateChangedLogs = await client.getLogs({
+      const stateChangedLogs = (await client.getLogs({
         address: ATTACK_REGISTRY,
         event: STATE_CHANGED,
         fromBlock: 0n,
         toBlock: latestBlock,
-      });
+      })) as unknown as AgreementStateLog[];
 
       const latestStateByAgreement = new Map<Address, number>();
       const agreementBlocks = new Map<Address, bigint>();
